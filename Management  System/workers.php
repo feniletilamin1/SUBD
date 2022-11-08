@@ -93,8 +93,9 @@
                                 <th class="info__table-column">Фамилия</th>
                                 <th class="info__table-column">Имя</th>
                                 <th class="info__table-column">Отчество</th>
-                                <th class="info__table-column">Телефон</th>
+                                <th class="info__table-column">Номер телефона</th>
                                 <th class="info__table-column">Должность</th>
+                                <th class="info__table-column">Специальность</th>
                                 <th class="info__table-column">Статус</th>
                             </tr>
                             <?php
@@ -113,9 +114,16 @@
                                         <td class="info__table-column"><?=$row['worker_middle_name']?></td>
                                         <td class="info__table-column"><?=$row['worker_phone']?></td>
                                         <td class="info__table-column"><?=$row['worker_post']?></td>
+                                        <td class="info__table-column"><?=$row['worker_speciality']?></td>
                                         <td class="info__table-column"><?=$row['worker_status']?></td>
                                         <td class="info__table-column">
                                             <a href="workerEditPage.php?id=<?=$row['id']?>" class="button button--blue">Управление</a>
+                                        </td>
+                                        <td class="info__table-column">
+                                            <a href="workersFeedbacks.php?id=<?=$row['id']?>"class="button button--blue">Отзывы</a>
+                                        </td>
+                                        <td class="info__table-column">
+                                            <a href="workerGetReportPage.php?id=<?=$row['id']?>" class="button button--blue">Получить отчёт</a>
                                         </td>
                                         <td class="info__table-column">
                                             <a href="/scenaries/workerDelete.php?id=<?=$row['id']?>"class="delete-btn">X</a>
