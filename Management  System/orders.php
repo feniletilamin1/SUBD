@@ -67,7 +67,7 @@
                                 <th class="info__table-column">Наименование объекта</th>
                                 <th class="info__table-column">Сумма заказа</th>
                                 <th class="info__table-column">Дата размещения</th>
-                                <th class="info__table-column">Плановая дата зааверщения</th>
+                                <th class="info__table-column">Плановая дата заверщения</th>
                             </tr>
                             <?php
                                 $counter = 1;

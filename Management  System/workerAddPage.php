@@ -62,6 +62,8 @@
                         <input required type="text" id="first-name" name="employee_first-name" class="edit-form__input">
                         <label class="edit-form__label" for="middle-name">Отчество</label>
                         <input required type="text" id="middle-name" name="employee_middle-name" class="edit-form__input">
+                        <label class="edit-form__label">Специальность</label>
+                        <input required type="text" name="employee_speciality" class="edit-form__input">
                         <label class="edit-form__label" for="phone">Телефон</label>
                         <input required type="text" id="phone" name="employee_phone" class="edit-form__input mask-phone">
                         <label class="edit-form__label" for="post">Должность</label>

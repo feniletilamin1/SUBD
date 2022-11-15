@@ -10,8 +10,7 @@
 
     while($row = mysqli_fetch_assoc($result)) {
         $workerId = $row['worker_id'];
-        echo $workerId;
-        $request = "UPDATE workers SET worker_status='Свободен' WHERE id='$workerId'";
+        $request = "UPDATE workers SET worker_status='Свободен' WHERE id='$workerId' AND worker_status = 'Занят'";
         mysqli_query($link, $request);
     }
 

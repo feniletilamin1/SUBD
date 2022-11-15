@@ -1,11 +1,11 @@
 <?php 
     include 'data/bdConnect.php';
-    $request = "SELECT * FROM workers";
+    $request = "SELECT * FROM workers WHERE worker_status = 'Свободен' OR worker_status = 'Занят'";
     $result = mysqli_query($link, $request);
 
-    mysqli_query($link, "CALL `getCountRows`('workers', @counter)");
-    $result2 = mysqli_query($link, "SELECT @counter AS `value`;");
-    $workersAllValue = mysqli_fetch_assoc($result2);
+    $request = "SELECT COUNT(*) as count FROM workers WHERE worker_status = 'Свободен' or worker_status = 'Занят'";
+    $workersResult = mysqli_query($link, $request);
+    $workersAllValue = mysqli_fetch_assoc($workersResult);
 
     $request = "SELECT COUNT(*) as count FROM workers WHERE worker_status = 'Свободен'";
     $workersResult = mysqli_query($link, $request);
@@ -74,7 +74,7 @@
                     <div class="info__card-wrapper">
                         <div class="info-card">
                             <span class="info-card__title">Всего</span>
-                            <span class="info-card__value"><?=$workersAllValue['value']?></span>
+                            <span class="info-card__value"><?=$workersAllValue['count']?></span>
                         </div>
                         <div class="info-card">
                             <span class="info-card__title">Заняты</span>
@@ -130,7 +130,7 @@
                                         </td>
                                     </tr>
                                 <?php
-                                    $counter++;
+                                        $counter++;
                                 }
                             ?>
                         </table>

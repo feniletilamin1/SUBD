@@ -205,13 +205,30 @@ body {
     max-width: 1024px;
 }
 .info__table {
-    background-color: #fff;
+    background-color: #ffffff;
     color: #444;
     border-radius: 5px;
+    width: 100%;
+}
+
+.info__table-column--white {
+    background-color: #ffffff;
 }
 
 .info__table-row {
     border-bottom: 1px solid #C5C7CD;   
+}
+
+.info__table-row--red {
+    background-color: rgb(230, 47, 47);
+}
+
+.info__table-row--yellow {
+    background-color: rgb(241, 241, 87);
+}
+
+.info__table-row--green {
+    background-color: rgb(0, 230, 0);
 }
   
 .info__table-column {
@@ -291,7 +308,7 @@ body {
     width: 300px;
     padding: 11px 8px 11px 16px;
     background: #FCFDFE;
-    border: 1px solid #F0F1F7;
+    border: 1px solid #dfe0e1;
     border-radius: 8px;
     font-family: 'Mulish';
     font-style: normal;
@@ -299,7 +316,7 @@ body {
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.3px;
-    color: rgb(75, 80, 109, 0.4);
+    color: rgb(75, 80, 109, 0.8);
 }
 
 .edit-form__input:not(:last-child) {
@@ -361,6 +378,7 @@ body {
 
 .info__image-object {
     position: relative;
+    margin-bottom: 40px;
 }
 
 .info__image-object-delete {
@@ -368,7 +386,7 @@ body {
     height: 25px;
     position: absolute;
     right: 20px;
-    top: 20px;
+    top: 60px;
 }
 
 .info__image-object-delete::after {
@@ -393,4 +411,24 @@ body {
     top: 10px;
     left: 0;
     transform: rotate(-45deg);
+}
+
+.info__image-object-desc {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0.2px;
+}
+
+.info__image-object-date {
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    margin-bottom: 20px;
 }

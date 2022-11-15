@@ -21,7 +21,8 @@
     $middleName = сheckEmptyString($row, 'employee_middle-name', 'worker_middle_name');
     $phone = сheckEmptyString($row, 'employee_phone', 'worker_phone');
     $post = сheckEmptyString($row, 'employee_post', 'worker_post');
-    $request = "UPDATE workers SET worker_last_name='$lastName', worker_first_name='$firstName', worker_middle_name='$middleName', worker_phone='$phone', worker_post='$post'  WHERE id = '$id'";
+    $speciality = сheckEmptyString($row, 'employee_speciality', 'worker_speciality');
+    $request = "UPDATE workers SET worker_last_name='$lastName', worker_first_name='$firstName', worker_middle_name='$middleName', worker_phone='$phone', worker_post='$post', worker_speciality='$speciality' WHERE id = '$id'";
     mysqli_query($link,$request);
 
     header('Location: ../workers.php');

@@ -1,6 +1,5 @@
 <?php
     include 'data/bdConnect.php';
-    include 'functions/functions.php';
     
     $id = $_GET['id'];
     $request = "SELECT * FROM workers WHERE id='$id'";
@@ -101,6 +100,8 @@
                     <input type="text" id="first-name" name="employee_first-name" class="edit-form__input">
                     <label class="edit-form__label" for="middle-name">Отчество</label>
                     <input type="text" id="middle-name" name="employee_middle-name" class="edit-form__input">
+                    <label class="edit-form__label">Специальность</label>
+                    <input required type="text" name="employee_speciality" class="edit-form__input">
                     <label class="edit-form__label" for="phone">Телефон</label>
                     <input type="text" id="phone" name="employee_phone" class="edit-form__input mask-phone">
                     <label class="edit-form__label" for="post">Должность</label>
@@ -108,8 +109,6 @@
                         <option>Рабочий</option>
                         <option>Прораб</option>
                     </select>
-                    <label class="edit-form__label" for="phone">Специальность</label>
-                    <input type="text" name="employee_speciality" class="edit-form__input">
                     <input type="submit" name="edit-submit" class="edit-form__submit" value="Изменить">
                 </form>
             </div>
