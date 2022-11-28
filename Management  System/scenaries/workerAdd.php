@@ -16,7 +16,6 @@
         loadAvatar($avatar, $dir);
         $request = "INSERT INTO workers (worker_avatar, worker_last_name, worker_first_name, worker_middle_name, worker_phone, worker_status, worker_post, worker_speciality) VALUES ('$img', '$lastName', '$firstName', '$middleName', '$phone', 'Свободен', '$post', '$speciality')";
         mysqli_query($link, $request);
-        echo mysqli_error($link);
     }
     header('Location: ../workers.php');
 ?>

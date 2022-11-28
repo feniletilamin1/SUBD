@@ -1,19 +1,10 @@
 <?php 
     include 'data/bdConnect.php';
-    $request = "SELECT * FROM workers WHERE worker_status = 'Свободен' OR worker_status = 'Занят'";
+    $request = "SELECT * FROM objects";
     $result = mysqli_query($link, $request);
-
-    $request = "SELECT COUNT(*) as count FROM workers WHERE worker_status = 'Свободен' or worker_status = 'Занят'";
-    $workersResult = mysqli_query($link, $request);
-    $workersAllValue = mysqli_fetch_assoc($workersResult);
-
-    $request = "SELECT COUNT(*) as count FROM workers WHERE worker_status = 'Свободен'";
-    $workersResult = mysqli_query($link, $request);
-    $workersFreeValue = mysqli_fetch_assoc($workersResult);
-
-    $request = "SELECT COUNT(*) as count FROM workers WHERE worker_status = 'Занят'";
-    $workersResult = mysqli_query($link, $request);
-    $workersBusyValue = mysqli_fetch_assoc($workersResult);
+    mysqli_query($link, "CALL `getCountRows`('objects', @counter)");
+    $result2 = mysqli_query($link, "SELECT @counter AS `value`;");
+    $objectsAllValue = mysqli_fetch_assoc($result2);
 ?>
 
 <!DOCTYPE html>
@@ -59,10 +50,10 @@
                         <li class="menu__list-item menu__list-item--client">
                             <a href="clients.php" class="menu__link">Клиенты</a>
                         </li>
-                        <li class="menu__list-item menu__list-item--objects">
+                        <li class="menu__list-item menu__list-item--active menu__list-item--objects">
                             <a href="objects.php" class="menu__link">Объекты</a>
                         </li>
-                        <li class="menu__list-item menu__list-item--active menu__list-item--employyes">
+                        <li class="menu__list-item menu__list-item--employyes">
                             <a href="workers.php" class="menu__link">Сотрудники</a>
                         </li>
                     </ul>
@@ -70,33 +61,28 @@
             </div>
             <div class="info">
                 <div class="info__wrapper">
-                    <h1 class="info__title">Сотрудники</h1>
+                    <h1 class="info__title">Строительные объекты</h1>
                     <div class="info__card-wrapper">
                         <div class="info-card">
                             <span class="info-card__title">Всего</span>
-                            <span class="info-card__value"><?=$workersAllValue['count']?></span>
-                        </div>
-                        <div class="info-card">
-                            <span class="info-card__title">Заняты</span>
-                            <span class="info-card__value"><?=$workersBusyValue['count']?></span>
-                        </div>
-                        <div class="info-card">
-                            <span class="info-card__title">Свободны</span>
-                            <span class="info-card__value"><?=$workersFreeValue['count']?></span>
+                            <span class="info-card__value"><?=$objectsAllValue['value'];?></span>
                         </div>
                     </div>
                     <div class="info__table-wrapper">
                         <table class="info__table">
                             <tr class="info__table-row">
                                 <th class="info__table-column">№</th>
-                                <th class="info__table-column">Фото</th>
-                                <th class="info__table-column">Фамилия</th>
-                                <th class="info__table-column">Имя</th>
-                                <th class="info__table-column">Отчество</th>
-                                <th class="info__table-column">Номер телефона</th>
-                                <th class="info__table-column">Должность</th>
-                                <th class="info__table-column">Специальность</th>
+                                <th class="info__table-column">Наименование объекта</th>
+                                <th class="info__table-column">Владелец</th>
+                                <th class="info__table-column">Категория объекта</th>
                                 <th class="info__table-column">Статус</th>
+                                <th class="info__table-column">Стоимость работ</th>
+                                <th class="info__table-column">Номер телефона</th>
+                                <th class="info__table-column">Индекс</th>
+                                <th class="info__table-column">Регион</th>
+                                <th class="info__table-column">Город</th>
+                                <th class="info__table-column">Улица</th>
+                                <th class="info__table-column">Дом</th>
                             </tr>
                             <?php
                                 $counter = 1;
@@ -104,30 +90,33 @@
                                 ?>
                                     <tr class="info__table-row">
                                         <td class="info__table-column"><?=$counter?></td>
+                                        <td class="info__table-column"><?=$row['object_name']?></td>
+                                        <td class="info__table-column"><?=$row['object_owner']?></td>
+                                        <td class="info__table-column"><?=$row['object_category']?></td>
+                                        <td class="info__table-column"><?=$row['object_status']?></td>
+                                        <td class="info__table-column"><?=$row['object_amount']?> руб.</td>
+                                        <td class="info__table-column"><?=$row['object_phone']?></td>
+                                        <td class="info__table-column"><?=$row['object_index']?></td>
+                                        <td class="info__table-column"><?=$row['object_region']?></td>
+                                        <td class="info__table-column"><?=$row['object_city']?></td>
+                                        <td class="info__table-column"><?=$row['object_street']?></td>
+                                        <td class="info__table-column"><?=$row['object_home']?></td>
                                         <td class="info__table-column">
-                                            <div class="info__table-column-avatar">
-                                                <img src="<?='data:image/png;base64,' . base64_encode($row['worker_avatar'])?>" alt="avatar.jpg" class="info__table-column-avatar-image">
-                                            </div>
-                                        </td>
-                                        <td class="info__table-column"><?=$row['worker_last_name']?></td>
-                                        <td class="info__table-column"><?=$row['worker_first_name']?></td>
-                                        <td class="info__table-column"><?=$row['worker_middle_name']?></td>
-                                        <td class="info__table-column"><?=$row['worker_phone']?></td>
-                                        <td class="info__table-column"><?=$row['worker_post']?></td>
-                                        <td class="info__table-column"><?=$row['worker_speciality']?></td>
-                                        <td class="info__table-column"><?=$row['worker_status']?></td>
-                                        <td class="info__table-column">
-                                            <a href="workerEditPage.php?id=<?=$row['id']?>" class="button button--blue">Управление</a>
-                                        </td>
-                                        <td class="info__table-column">
-                                            <a href="workersFeedbacks.php?id=<?=$row['id']?>"class="button button--blue">Отзывы</a>
+                                            <a href="objectsPhotos.php?id=<?=$row['id']?>" class="button button--blue">Фотографии</a>
                                         </td>
                                         <td class="info__table-column">
-                                            <a href="workerGetReportPage.php?id=<?=$row['id']?>" class="button button--blue">Получить отчёт</a>
+                                            <a href="objectEditPage.php?id=<?=$row['id']?>" class="button button--blue">Управление</a>
                                         </td>
                                         <td class="info__table-column">
-                                            <a href="/scenaries/workerDelete.php?id=<?=$row['id']?>"class="delete-btn">X</a>
+                                                <a href="objectWorkers.php?id=<?=$row['id']?>" class="button button--blue">Список сотрудников</a>
                                         </td>
+                                        <?php if($row['object_status'] != "Завершён") { ?>
+                                            <td class="info__table-column">
+                                                <a href="/scenaries/objectFinishWork.php?id=<?=$row['id']?>" class="button button--red">Завершить</a>
+                                            </td>
+                                        <?php    
+                                            }                                      
+                                        ?>
                                     </tr>
                                 <?php
                                     $counter++;
@@ -135,7 +124,7 @@
                             ?>
                         </table>
                     </div>
-                    <a href="workerAddPage.php" class="button button--blue button--center">Добавить сотрудника</a>
+                    <a href="objectAddPage.php" class="button button--blue button--center">Добавить объект</a>
                 </div>
             </div>
         </div>

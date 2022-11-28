@@ -1,19 +1,10 @@
 <?php 
     include 'data/bdConnect.php';
-    $request = "SELECT * FROM workers WHERE worker_status = 'Свободен' OR worker_status = 'Занят'";
+
+    $id = $_GET['id'];
+    $request = "SELECT * FROM workers WHERE worker_status='Свободен'";
     $result = mysqli_query($link, $request);
 
-    $request = "SELECT COUNT(*) as count FROM workers WHERE worker_status = 'Свободен' or worker_status = 'Занят'";
-    $workersResult = mysqli_query($link, $request);
-    $workersAllValue = mysqli_fetch_assoc($workersResult);
-
-    $request = "SELECT COUNT(*) as count FROM workers WHERE worker_status = 'Свободен'";
-    $workersResult = mysqli_query($link, $request);
-    $workersFreeValue = mysqli_fetch_assoc($workersResult);
-
-    $request = "SELECT COUNT(*) as count FROM workers WHERE worker_status = 'Занят'";
-    $workersResult = mysqli_query($link, $request);
-    $workersBusyValue = mysqli_fetch_assoc($workersResult);
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/reseter.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Система управления</title>
+    <title>Добавление сотрудника на объект</title>
 </head>
 <body>
     <section class="section">
@@ -70,21 +61,7 @@
             </div>
             <div class="info">
                 <div class="info__wrapper">
-                    <h1 class="info__title">Сотрудники</h1>
-                    <div class="info__card-wrapper">
-                        <div class="info-card">
-                            <span class="info-card__title">Всего</span>
-                            <span class="info-card__value"><?=$workersAllValue['count']?></span>
-                        </div>
-                        <div class="info-card">
-                            <span class="info-card__title">Заняты</span>
-                            <span class="info-card__value"><?=$workersBusyValue['count']?></span>
-                        </div>
-                        <div class="info-card">
-                            <span class="info-card__title">Свободны</span>
-                            <span class="info-card__value"><?=$workersFreeValue['count']?></span>
-                        </div>
-                    </div>
+                    <h1 class="info__title info__title--margin-bottom40px">Добавление нового сотрудника на объект</h1>
                     <div class="info__table-wrapper">
                         <table class="info__table">
                             <tr class="info__table-row">
@@ -101,6 +78,7 @@
                             <?php
                                 $counter = 1;
                                 while ($row = mysqli_fetch_assoc($result)) {
+                                    if($row['worker_status'] != "Уволен") {
                                 ?>
                                     <tr class="info__table-row">
                                         <td class="info__table-column"><?=$counter?></td>
@@ -117,28 +95,22 @@
                                         <td class="info__table-column"><?=$row['worker_speciality']?></td>
                                         <td class="info__table-column"><?=$row['worker_status']?></td>
                                         <td class="info__table-column">
-                                            <a href="workerEditPage.php?id=<?=$row['id']?>" class="button button--blue">Управление</a>
-                                        </td>
-                                        <td class="info__table-column">
-                                            <a href="workersFeedbacks.php?id=<?=$row['id']?>"class="button button--blue">Отзывы</a>
-                                        </td>
-                                        <td class="info__table-column">
-                                            <a href="workerGetReportPage.php?id=<?=$row['id']?>" class="button button--blue">Получить отчёт</a>
-                                        </td>
-                                        <td class="info__table-column">
-                                            <a href="/scenaries/workerDelete.php?id=<?=$row['id']?>"class="delete-btn">X</a>
+                                            <a href="scenaries/objectAddWorker.php?id=<?=$id?>&workerId=<?=$row['id']?>" class="button button--blue">Добавить на объект</a>
                                         </td>
                                     </tr>
                                 <?php
-                                    $counter++;
+                                        $counter++;
+                                    }
                                 }
                             ?>
                         </table>
                     </div>
-                    <a href="workerAddPage.php" class="button button--blue button--center">Добавить сотрудника</a>
                 </div>
             </div>
         </div>
     </section>
+    <script src="Js/JQuery.min.js"></script>
+    <script src="Js/jquery.maskedinput.min.js"></script>
+    <script src="Js/main.js"></script>
 </body>
 </html>
